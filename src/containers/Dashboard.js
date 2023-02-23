@@ -145,9 +145,25 @@ export default class {
       this.counter ++
     }
 
-    bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+
+    // /* Adding an event listener to each bill. */
+    //bills.forEach(bill => {
+    //   $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+    // })
+
+    /* Filtering the bills by status and then adding an event listener to each bill. */
+    const status = index === 1 ? "pending" : index === 2 ? "accepted" : "refused";
+
+    const newBills = bills.filter((bill) => bill.status === status);
+
+    newBills.forEach((bill) => {
+      const element = document.getElementById(`open-bill${bill.id}`)
+      if (element) {
+
+        element.addEventListener('click', (e) => this.handleEditTicket(e, bill, bills));
+      }
     })
+
 
     return bills
 
