@@ -22,7 +22,8 @@ const row = (bill) => {
 const rows = (data) => {
   /* It's a ternary operator. If data is not null and data.length is not 0, then it will return the
   data sorted by date, mapped to the row function and joined. If data is null or data.length is 0,
-  then it will return an empty string. */
+  then it will return an empty string.
+  cette modification devrait permettre de trier les factures par date de manière décroissante. */
   return data && data.length
     ? data
         .sort((a, b) => (a.date < b.date ? 1 : -1))
