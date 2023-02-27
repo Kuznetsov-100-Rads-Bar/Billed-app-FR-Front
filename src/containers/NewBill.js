@@ -23,14 +23,20 @@ export default class NewBill {
     const fileFormat = file.type;
 
     if (!fileFormat) {
-      return alert("Veuillez selectionner un fichier valide.");
+      const fileErrorMessage = this.document.getElementById('file-error-message');
+      fileErrorMessage.textContent = "Veuillez sélectionner un fichier valide.";
+      return;
     }
     /* Checking if the file is an image. */
     const fileFormatType = fileFormat.split("/")[0];
+    
+    const fileErrorMessage = this.document.getElementById('file-error-message');
+    fileErrorMessage.style.display = 'none';
 
     if (fileFormatType !== "image") {
       this.document.querySelector(`input[data-testid="file"]`).value = '';
-      return alert("Veuillez selectionner un fichier valide.");
+      fileErrorMessage.style.display = 'block';
+      return;
     }
 
     const filePath = e.target.value.split(/\\/g)
