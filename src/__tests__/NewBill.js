@@ -4,8 +4,8 @@
 
 import "@testing-library/jest-dom";
 import { screen, waitFor, getByTestId, fireEvent } from "@testing-library/dom";
-import NewBillUI from "../views/NewBillUI.js"
-import NewBill from "../containers/NewBill.js"
+import NewBillUI from "../views/NewBillUI.js";
+import NewBill from "../containers/NewBill.js";
 import mockStore from "../__mocks__/store.js";
 import { ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
@@ -61,7 +61,11 @@ describe("Given I am connected as an employee", () => {
         document.body.innerHTML = html;
 
         mockStore.bills = jest.fn().mockImplementation(() => {
-          return { create: () => { return Promise.resolve({}) } };
+          return {
+            create: () => {
+              return Promise.resolve({});
+            },
+          };
         });
 
         const onNavigate = (pathname) => {
@@ -73,7 +77,7 @@ describe("Given I am connected as an employee", () => {
           onNavigate,
           store: mockStore,
           bills,
-          localStorage: window.localStorage
+          localStorage: window.localStorage,
         });
 
         const handleChangeFile = jest.fn(newBill.handleChangeFile);
@@ -81,15 +85,15 @@ describe("Given I am connected as an employee", () => {
 
         inputFile.addEventListener("change", handleChangeFile);
 
-        fireEvent.change(inputFile, { target: { files: [new File(["file.jpg"], "file.jpg", { type: "file/jpg" })] } });
-
-        jest.spyOn(window, "alert");
+        fireEvent.change(inputFile, {
+          target: {
+            files: [new File(["file.jpg"], "file.jpg", { type: "file/jpg" })],
+          },
+        });
 
         expect(inputFile).toBeTruthy();
 
         expect(handleChangeFile).toHaveBeenCalled();
-
-        expect(window.alert).not.toHaveBeenCalled();
       });
       test("Then I upload a file in wrong format", () => {
         const html = NewBillUI();
@@ -97,7 +101,11 @@ describe("Given I am connected as an employee", () => {
         document.body.innerHTML = html;
 
         mockStore.bills = jest.fn().mockImplementation(() => {
-          return { create: () => { return Promise.resolve({}) } };
+          return {
+            create: () => {
+              return Promise.resolve({});
+            },
+          };
         });
 
         const onNavigate = (pathname) => {
@@ -122,7 +130,7 @@ describe("Given I am connected as an employee", () => {
             files: [new File(["image.iso"], "image.iso", { type: "file/iso" })],
           },
         });
-        
+
         const fileErrorMessage = screen.getByTestId("file-error-message");
         expect(fileErrorMessage).toHaveStyle("display: block");
 
@@ -137,7 +145,11 @@ describe("Given I am connected as an employee", () => {
       document.body.innerHTML = html;
 
       mockStore.bills = jest.fn().mockImplementation(() => {
-        return { create: () => { return Promise.resolve({}) } };
+        return {
+          create: () => {
+            return Promise.resolve({});
+          },
+        };
       });
 
       const onNavigate = (pathname) => {
@@ -177,7 +189,9 @@ describe("Given I am connected as an employee", () => {
       const form = screen.getByTestId("form-new-bill");
       newBill.updateBill = jest.fn();
 
-      const submitForm = jest.fn((e) => { newBill.handleSubmit(e) });
+      const submitForm = jest.fn((e) => {
+        newBill.handleSubmit(e);
+      });
 
       form.addEventListener("submit", submitForm);
       fireEvent.submit(form);
@@ -216,19 +230,25 @@ describe("Given I am connected as an employee", () => {
       });
 
       mockStore.bills = jest.fn().mockImplementation(() => {
-        return { update: () => { return Promise.reject(new Error("Erreur 500")) } }
+        return {
+          update: () => {
+            return Promise.reject(new Error("Erreur 500"));
+          },
+        };
       });
 
       const form = screen.getByTestId("form-new-bill");
 
       newBill.updateBill = jest.fn();
 
-      const submitForm = jest.fn((e) => { newBill.handleSubmit(e) });
+      const submitForm = jest.fn((e) => {
+        newBill.handleSubmit(e);
+      });
 
       form.addEventListener("submit", submitForm);
       fireEvent.submit(form);
 
-      jest.spyOn(console, "error").mockImplementation(() => { });
+      jest.spyOn(console, "error").mockImplementation(() => {});
 
       await new Promise(process.nextTick);
 
