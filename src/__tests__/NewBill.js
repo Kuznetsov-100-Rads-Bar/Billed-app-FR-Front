@@ -125,6 +125,7 @@ describe("Given I am connected as an employee", () => {
 
         inputFile.addEventListener("change", handleChangeFile);
 
+        // On fourni un fichier image invalide pour véri
         fireEvent.change(inputFile, {
           target: {
             files: [new File(["image.iso"], "image.iso", { type: "file/iso" })],
@@ -133,6 +134,28 @@ describe("Given I am connected as an employee", () => {
 
         const fileErrorMessage = screen.getByTestId("file-error-message");
         expect(fileErrorMessage).toHaveStyle("display: block");
+        /*
+        fireEvent.change(inputFile, {
+          target: {
+            files: [
+              new File(["image.jpg"], "image.jpg", { type: "image/jpeg" }),
+            ],
+          },
+        });
+
+        expect(fileErrorMessage).toHaveStyle("display: none");
+        */
+        fireEvent.change(inputFile, {
+          target: {
+            files: [
+              new File(["image.png"], "image.png", {
+                type: "image/png",
+              }),
+            ],
+          },
+        });
+
+        expect(fileErrorMessage).toHaveStyle("display: none");
 
         expect(inputFile).toBeTruthy();
         expect(handleChangeFile).toHaveBeenCalled();

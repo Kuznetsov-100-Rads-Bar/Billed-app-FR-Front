@@ -37,22 +37,22 @@ export const card = (bill) => {
     : firstAndLastNames;
 
   return `
-    <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${
+      <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${
     bill.id
   }'>
-      <div class='bill-card-name-container'>
-        <div class='bill-card-name'> ${firstName} ${lastName} </div>
-        <span class='bill-card-grey'> ... </span>
+        <div class='bill-card-name-container'>
+          <div class='bill-card-name'> ${firstName} ${lastName} </div>
+          <span class='bill-card-grey'> ... </span>
+        </div>
+        <div class='name-price-container'>
+          <span> ${bill.name} </span>
+          <span> ${bill.amount} € </span>
+        </div>
+        <div class='date-type-container'>
+          <span> ${formatDate(bill.date)} </span>
+          <span> ${bill.type} </span>
+        </div>
       </div>
-      <div class='name-price-container'>
-        <span> ${bill.name} </span>
-        <span> ${bill.amount} € </span>
-      </div>
-      <div class='date-type-container'>
-        <span> ${formatDate(bill.date)} </span>
-        <span> ${bill.type} </span>
-      </div>
-    </div>
   `;
 };
 
